@@ -1,0 +1,147 @@
+<%- include('../../../partials/head.ejs') %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2"><%- include('../../../partials/sidebar.ejs') %></div>
+    <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <div class="mx-5 card card-body">
+            <h4 class="text-center my-3">Create A New Post</h4>
+            <form
+              action="/posts/create"
+              method="POST"
+              enctype="multipart/form-data"
+            >
+              <div class="form-group">
+                <label for="title">Enter your title</label>
+                <input
+                  type="text"
+                  name="title"
+                  id="title"
+                  class="form-control <%= error.title && 'is-invalid' %>"
+                  placeholder="Enter your title"
+                  value="<%= value.title && value.title%>"
+                />
+                <div class="invalid-feedback">
+                  <%= error.title && error.title %>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="tiny-mce-post-body">Enter your post body</label>
+                <textarea
+                  name="body"
+                  id="tiny-mce-post-body"
+                  class="form-control <%= error.body && 'is-invalid' %>"
+                >
+                  <%= value.body && value.body %></textarea
+                >
+                <div class="invalid-feedback">
+                  <%= error.body && error.body %>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="tags">Enter some tags (Max 15)</label>
+                <input
+                  type="text"
+                  name="tags"
+                  id="tags"
+                  class="form-control <%= error.tags && 'is-invalid' %>"
+                  placeholder="tag1, tag2, tag3"
+                  value="<%= value.tags && value.tags %>"
+                />
+                <div class="invalid-feedback">
+                  <%= error.tags && error.tags %>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="category">Select a category</label>
+                <select
+                  class="form-control category"
+                  id="category"
+                  name="category"
+                >
+                  <!-- Add your category options dynamically here -->
+                  
+                  <!-- Add more options as needed -->
+                </select>
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Upload</span>
+                </div>
+                <div class="custom-file">
+                  <input
+                    type="file"
+                    class="custom-file-input"
+                    name="post-thumbnail"
+                    id="inputGroupFile"
+                  />
+                  <label for="inputGroupFile" class="custom-file-label"
+                    >Choose File</label
+                  >
+                </div>
+              </div>
+              <input
+                type="submit"
+                class="btn btn-primary"
+                value="Create Post"
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../../../partials/footer.ejs') %>
+
+<script
+  src="https://cdn.tiny.cloud/1/9tsy78sh5yad3j0972nagz3lodbget9j2hzrpcwc8du794bf/tinymce/5/tinymce.min.js"
+  referrerpolicy="origin"
+></script>
+
+<script>
+  $("#inputGroupFile").on("change", function (e) {
+    const filename = e.target.files[0].name;
+    $(this).next(".custom-file-label").html(filename);
+  });
+</script>
+
+<script src="/scripts/tinymce.js"></script>
+<script>
+
+  //on page load make ajax request to /allCategory and append to dropdown
+  document.addEventListener('DOMContentLoaded', function() {
+
+  fetch('/explorer/getallCategory/all', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(function(response) {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Error: ' + response.status);
+      }
+    })
+    .then(function(data) {
+      data.forEach(function(category) {
+        // append options to select
+        var option = document.createElement('option');
+        option.value = category._id;
+        option.textContent = category.name;
+        document.querySelector('.category').appendChild(option);
+        
+      });
+    })
+    .catch(function(error) {
+      console.error(error);
+    });
+});
+</script>
+</body>
+</html>

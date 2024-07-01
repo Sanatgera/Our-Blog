@@ -1,0 +1,85 @@
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#">Our Blog</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a href="/explorer" class="nav-link nav-url-link">Explorer</a>
+        </li>
+        <% if (isLoggedIn) { %>
+        <li class="nav-item">
+          <a class="nav-link nav-url-link" href="/dashboard">Dashboard</a>
+        </li>
+        <% } else { %>
+        <li class="nav-item">
+          <a class="nav-link nav-url-link" href="/auth/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-url-link" href="/auth/signup">Signup</a>
+        </li>
+        <% } %>
+      </ul>
+      <form class="d-flex" action="/search" method="GET">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="term">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav> -->
+<nav class="navbar navbar-expand-custom navbar-mainbg">
+  <a class="navbar-brand navbar-logo" href="/">OurBlog</a>
+  <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <i class="fas fa-bars text-white"></i>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <form class="d-flex" action="/search" method="GET">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="term">
+      <button class="btn" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+    </form>
+      <ul class="navbar-nav ml-auto">
+          <div class="hori-selector"><div class="left"></div><div class="right"></div></div>
+          <li class="nav-item">
+              <a class="nav-link" href="/explorer"><i class="fas fa-tachometer-alt"></i>Explorer</a>
+          </li>
+          <% if (isLoggedIn) { %>
+          <li class="nav-item">
+              <a class="nav-link" href="/dashboard"><i class="far fa-address-book"></i>Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/auth/logout"><i class="far fa-clone"></i>Logout</a>
+          </li>
+          <% } else { %>
+          <li class="nav-item">
+              <a class="nav-link" href="/auth/login"><i class="far fa-clone"></i>Login</a>
+          </li>
+          
+          <li class="nav-item">
+              <a class="nav-link" href="/auth/signup"><i class="far fa-calendar-alt"></i>Signup</a>
+          </li>
+          <% } %>
+      </ul>
+  </div>
+</nav>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+
+<!-- <script>
+  // adding active class to the active route
+  const current = location.pathname;
+  const navLinks = document.querySelectorAll(".nav-url-link");
+  [...navLinks].forEach((link) => {
+    link.classList.remove('active')
+
+    if (
+      (current.includes(link.getAttribute("href")) &&
+        link.getAttribute("href") !== "/") ||
+      (link.getAttribute("href") === "/" && current === "/")
+    ) {
+      link.classList.add('active')
+    }
+  });
+</script> -->
